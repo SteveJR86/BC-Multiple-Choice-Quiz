@@ -16,6 +16,11 @@ let timer;
 let score;
 let finished = false;
 
+// audio files for correct and incorrect sounds
+// solution gained from https://stackoverflow.com/questions/9419263/how-to-play-audio
+let correctSound = new Audio('./sfx/correct.wav');
+let incorrectSound = new Audio('./sfx/incorrect.wav');
+
 // event listener to check for start button being clicked
 // which will replace the starter text with the question text
 // and start the timer
@@ -78,10 +83,12 @@ function renderQuestion(question) {
 function checkAnswer(event){
   if(event.target.dataset.correct){
     score += 1;
+    correctSound.play();
   }
   else {
     timeRemaining -= 10;
     score -= 1;
+    incorrectSound.play();
   }
   // check that there are still more questions to answer
   if(questions.length>0){
